@@ -15,7 +15,10 @@ try
 
 	// NLog: Setup NLog for Dependency injection
 	builder.Logging.ClearProviders();
-	builder.Host.UseNLog();
+	builder.Host.UseNLog(new NLogAspNetCoreOptions
+	{
+		RemoveLoggerFactoryFilter = true
+	});
 
 	var app = builder.Build();
 
