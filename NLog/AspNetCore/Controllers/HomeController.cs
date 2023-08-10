@@ -44,7 +44,17 @@ public class HomeController : Controller
 	public IActionResult Error()
 	{
 		string requestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
-		_logger.LogInformation($"Something went wrong in Home controller => {requestId}");
+		_logger.LogError($"Something went wrong in Home controller => {requestId}");
 		return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? requestId });
+	}
+
+	public IActionResult Warning()
+	{
+		int randomNumber = Random.Shared.Next(1,1001);
+		DateOnly date = DateOnly.FromDateTime(DateTime.Now);
+
+		_logger.LogWarning("We asked for a random number {rndNb} Warning on {date}",randomNumber,date);
+		
+		return Ok();
 	}
 }
